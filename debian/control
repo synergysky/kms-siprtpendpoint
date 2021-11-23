@@ -9,6 +9,7 @@ Build-Depends: debhelper (>= 9),
  kms-core-dev (>= 7.0.0),
  kms-elements-dev (>= 7.0.0),
  kms-filters-dev (>= 7.0.0),
+ libgstreamer-plugins-bad1.0-dev,
 Standards-Version: 4.0.0
 Homepage: www.kurento.org
 Vcs-Browser: https://
