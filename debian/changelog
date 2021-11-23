@@ -1,3 +1,9 @@
+kms-siprtpendpoint (1.0.0.18.04~20210728095528.gbp65a781-1~debify11+1) debify-bullseye; urgency=medium
+
+  * Build for debify-bullseye.
+
+ -- Daniel Pocock <daniel@pocock.pro>  Mon, 22 Nov 2021 12:41:04 +0100
+
 kms-siprtpendpoint (1.0.0.18.04~20210728095528.gbp65a781) UNRELEASED; urgency=medium
 
   ** SNAPSHOT build @65a781d8e63dc63fc9a6dc7c26c0159e85ee189a **
