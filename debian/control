@@ -1,6 +1,7 @@
 Source: kms-siprtpendpoint
 Section: libs
 Maintainer: NaevaTec <info@naevatec.com>
+Uploaders: Daniel Pocock <daniel@pocock.pro>
 Priority: optional
 Build-Depends: debhelper (>= 9),
  cmake,
