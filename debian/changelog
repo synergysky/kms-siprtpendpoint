@@ -1,3 +1,9 @@
+kms-siprtpendpoint (1.0.0.18.04~synergysky-1) debify-bullseye; urgency=medium
+
+  * branch tagging
+
+ -- Egil Hasting <eh@synergysky.com>  Wed, 01 Dec 2021 12:46:30 +0200
+
 kms-siprtpendpoint (1.0.0.18.04~20210728095528.gbp65a781-1~debify11+1) debify-bullseye; urgency=medium
 
   * Build for debify-bullseye.
