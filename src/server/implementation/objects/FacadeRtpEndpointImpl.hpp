@@ -59,6 +59,8 @@ public:
 
 
   /*----------------- MEthods from BaseRtpEndpoint ---------------*/
+  void sendPictureFastUpdate () override;
+
   int getMinVideoRecvBandwidth () override;
   void setMinVideoRecvBandwidth (int minVideoRecvBandwidth) override;
 
@@ -74,6 +76,7 @@ public:
   std::shared_ptr<RembParams> getRembParams () override;
   void setRembParams (std::shared_ptr<RembParams> rembParams)override;
 
+  sigc::signal<void, KeyframeRequired> getSignalKeyframeRequired ();
   sigc::signal<void, MediaStateChanged> getSignalMediaStateChanged ();
   sigc::signal<void, ConnectionStateChanged> getSignalConnectionStateChanged ();
 
@@ -166,12 +169,14 @@ private:
 
   bool cryptoAgnostic;
 
+  sigc::signal<void, KeyframeRequired> signalKeyframeRequired;
   sigc::signal<void, MediaStateChanged> signalMediaStateChanged;
   sigc::signal<void, ConnectionStateChanged> signalConnectionStateChanged;
   sigc::signal<void, MediaSessionStarted> signalMediaSessionStarted;
   sigc::signal<void, MediaSessionTerminated> signalMediaSessionTerminated;
   sigc::signal<void, OnKeySoftLimit> signalOnKeySoftLimit;
 
+  sigc::connection connKeyframeRequired;
   sigc::connection connMediaStateChanged;
   sigc::connection connConnectionStateChanged;
   sigc::connection connMediaSessionStarted;
