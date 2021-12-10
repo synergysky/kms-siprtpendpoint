@@ -176,6 +176,11 @@ bool FacadeRtpEndpointImpl::connect (const std::string &eventType, std::shared_p
 	    handler->setConnection (conn);
 	    return true;
     }
+        if ("KeyframeRequired" == eventType) {
+        sigc::connection conn = connectEventToExternalHandler<KeyframeRequired> (signalKeyframeRequired, wh);
+            handler->setConnection (conn);
+            return true;
+        }
 	if ("MediaStateChanged" == eventType) {
     	sigc::connection conn = connectEventToExternalHandler<MediaStateChanged> (signalMediaStateChanged, wh);
 	    handler->setConnection (conn);
@@ -1051,6 +1056,7 @@ FacadeRtpEndpointImpl::checkCryptoAnswer (std::string& answer, std::shared_ptr<S
 void
 FacadeRtpEndpointImpl::disconnectForwardSignals ()
 {
+        connKeyframeRequired.disconnect ();
 	connMediaStateChanged.disconnect ();
 	connConnectionStateChanged.disconnect ();
 	connMediaSessionStarted.disconnect ();
@@ -1062,6 +1068,15 @@ void
 FacadeRtpEndpointImpl::connectForwardSignals ()
 {
 	std::weak_ptr<MediaObject> wt = shared_from_this ();
+
+          connKeyframeRequired = std::dynamic_pointer_cast<BaseRtpEndpointImpl>(rtp_ep)->signalKeyframeRequired.connect([ &, wt ] (
+                          KeyframeRequired event) {
+                  std::shared_ptr<MediaObject> sth = wt.lock ();
+                  if (!sth)
+                          return;
+
+                  raiseEvent<KeyframeRequired> (event, sth, signalKeyframeRequired);
+          });
 
 	  connMediaStateChanged = std::dynamic_pointer_cast<BaseRtpEndpointImpl>(rtp_ep)->signalMediaStateChanged.connect([ &, wt ] (
 			  MediaStateChanged event) {
@@ -1151,6 +1166,11 @@ FacadeRtpEndpointImpl::renewInternalEndpoint (std::shared_ptr<SipRtpEndpointImpl
 }
 
 /*----------------- MEthods from BaseRtpEndpoint ---------------*/
+void FacadeRtpEndpointImpl::sendPictureFastUpdate ()
+{
+        this->rtp_ep->sendPictureFastUpdate ();
+}
+
 int FacadeRtpEndpointImpl::getMinVideoRecvBandwidth ()
 {
 	return this->rtp_ep->getMinVideoRecvBandwidth();
@@ -1197,6 +1217,10 @@ void FacadeRtpEndpointImpl::setRembParams (std::shared_ptr<RembParams> rembParam
 {
 	this->rtp_ep->setRembParams (rembParams);
 	rembParamsSet = rembParams;
+}
+sigc::signal<void, KeyframeRequired> FacadeRtpEndpointImpl::getSignalKeyframeRequired ()
+{
+        return this->rtp_ep->signalKeyframeRequired;
 }
 sigc::signal<void, MediaStateChanged> FacadeRtpEndpointImpl::getSignalMediaStateChanged ()
 {
