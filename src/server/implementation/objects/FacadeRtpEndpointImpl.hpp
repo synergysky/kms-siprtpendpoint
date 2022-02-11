@@ -41,16 +41,17 @@ class CryptoSuite;
 void Serialize (std::shared_ptr<FacadeRtpEndpointImpl> &object,
                 JsonSerializer &serializer);
 
-class FacadeRtpEndpointImpl : public ComposedObjectImpl, public virtual SipRtpEndpoint
+class FacadeRtpEndpointImpl : public ComposedObjectImpl,
+  public virtual SipRtpEndpoint
 {
 
 public:
 
   FacadeRtpEndpointImpl (const boost::property_tree::ptree &conf,
-                   std::shared_ptr<MediaPipeline> mediaPipeline,
-                   std::shared_ptr<SDES> crypto,
-				   bool cryptoAgnostic,
-				   bool useIpv6);
+                         std::shared_ptr<MediaPipeline> mediaPipeline,
+                         std::shared_ptr<SDES> crypto,
+                         bool cryptoAgnostic,
+                         bool useIpv6);
 
   virtual ~FacadeRtpEndpointImpl ();
 
@@ -59,6 +60,8 @@ public:
 
 
   /*----------------- MEthods from BaseRtpEndpoint ---------------*/
+  void sendPictureFastUpdate () override;
+
   int getMinVideoRecvBandwidth () override;
   void setMinVideoRecvBandwidth (int minVideoRecvBandwidth) override;
 
@@ -72,8 +75,9 @@ public:
   std::shared_ptr<ConnectionState> getConnectionState () override;
 
   std::shared_ptr<RembParams> getRembParams () override;
-  void setRembParams (std::shared_ptr<RembParams> rembParams)override;
+  void setRembParams (std::shared_ptr<RembParams> rembParams) override;
 
+  sigc::signal<void, KeyframeRequired> getSignalKeyframeRequired ();
   sigc::signal<void, MediaStateChanged> getSignalMediaStateChanged ();
   sigc::signal<void, ConnectionStateChanged> getSignalConnectionStateChanged ();
 
@@ -99,7 +103,8 @@ public:
         std::shared_ptr<MediaType> mediaType) override;
 
 
-  std::vector<std::shared_ptr<ElementConnectionData>> getSourceConnections () override;
+  std::vector<std::shared_ptr<ElementConnectionData>> getSourceConnections ()
+      override;
   std::vector<std::shared_ptr<ElementConnectionData>>
       getSourceConnections (
         std::shared_ptr<MediaType> mediaType) override;
@@ -166,12 +171,14 @@ private:
 
   bool cryptoAgnostic;
 
+  sigc::signal<void, KeyframeRequired> signalKeyframeRequired;
   sigc::signal<void, MediaStateChanged> signalMediaStateChanged;
   sigc::signal<void, ConnectionStateChanged> signalConnectionStateChanged;
   sigc::signal<void, MediaSessionStarted> signalMediaSessionStarted;
   sigc::signal<void, MediaSessionTerminated> signalMediaSessionTerminated;
   sigc::signal<void, OnKeySoftLimit> signalOnKeySoftLimit;
 
+  sigc::connection connKeyframeRequired;
   sigc::connection connMediaStateChanged;
   sigc::connection connConnectionStateChanged;
   sigc::connection connMediaSessionStarted;
@@ -191,28 +198,31 @@ private:
   sameConnection (GstSDPMessage *sdp1, GstSDPMessage *sdp2);
 
   bool
-  findCompatibleMedia (GstSDPMedia* media, GstSDPMessage *oldAnswer);
+  findCompatibleMedia (GstSDPMedia *media, GstSDPMessage *oldAnswer);
 
   void
-  answerHasCompatibleMedia (const std::string& answer, bool& audio_compatible, bool& video_compatible);
+  answerHasCompatibleMedia (const std::string &answer, bool &audio_compatible,
+                            bool &video_compatible);
 
   bool
   isCryptoAgnostic ();
 
   bool
-  generateCryptoAgnosticOffer (std::string& offer);
+  generateCryptoAgnosticOffer (std::string &offer);
 
   bool
-  checkCryptoOffer (std::string& offer, std::shared_ptr<SDES>& crypto);
+  checkCryptoOffer (std::string &offer, std::shared_ptr<SDES> &crypto);
 
   bool
-  checkCryptoAnswer (std::string& answer, std::shared_ptr<SDES>& crypto);
+  checkCryptoAnswer (std::string &answer, std::shared_ptr<SDES> &crypto);
 
   void
-  replaceSsrc (GstSDPMedia *media, guint idx, gchar *newSsrcStr, guint32 &oldSsrc);
+  replaceSsrc (GstSDPMedia *media, guint idx, gchar *newSsrcStr,
+               guint32 &oldSsrc);
 
   void
-  replaceAllSsrcAttrs (GstSDPMedia *media, std::list<guint> sscrIdxs, guint32 &oldSsrc, guint32 &newSsrc);
+  replaceAllSsrcAttrs (GstSDPMedia *media, std::list<guint> sscrIdxs,
+                       guint32 &oldSsrc, guint32 &newSsrc);
 
   void
   removeCryptoAttrs (GstSDPMedia *media, std::list<guint> cryptoIdx);

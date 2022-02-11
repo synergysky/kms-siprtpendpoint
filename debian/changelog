@@ -1,3 +1,9 @@
+kms-siprtpendpoint (1.0.0.18.04~20210728095528.gbp65a781+dp1-1~debify11+1) debify-bullseye; urgency=medium
+
+  * Update for v1.0.0.18.04~20210728095528.gbp65a781+dp1-1~debify11+1
+
+ -- Daniel Pocock <daniel@pocock.pro>  Fri, 10 Dec 2021 15:13:44 +0100
+
 kms-siprtpendpoint (1.0.0.18.04~synergysky-1) debify-bullseye; urgency=medium
 
   * branch tagging
