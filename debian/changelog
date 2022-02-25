@@ -1,77 +1,51 @@
-kms-siprtpendpoint (0.0.1~rc1.18.04~20211203115156.gbp1a3254) UNRELEASED; urgency=medium
+kms-siprtpendpoint (1.0.0.18.04~synergysky-2) debify-bullseye; urgency=medium
 
-  ** SNAPSHOT build @1a3254b56cb0807889e1bf9613d2f339a12fc855 **
+  * merge of main and connection patch
+
+ -- Egil Hasting <eh@synergysky.com>  Wed, 01 Dec 2021 12:46:30 +0200
+
+kms-siprtpendpoint (1.0.0.18.04~20210728095528.gbp65a781+dp1-1~debify11+1) debify-bullseye; urgency=medium
+
+  * Update for v1.0.0.18.04~20210728095528.gbp65a781+dp1-1~debify11+1
+
+ -- Daniel Pocock <daniel@pocock.pro>  Fri, 10 Dec 2021 15:13:44 +0100
+
+kms-siprtpendpoint (1.0.0.18.04~synergysky-1) debify-bullseye; urgency=medium
+
+  * branch tagging
+
+ -- Egil Hasting <eh@synergysky.com>  Wed, 01 Dec 2021 12:46:30 +0200
+
+kms-siprtpendpoint (1.0.0.18.04~20210728095528.gbp65a781-1~debify11+1) debify-bullseye; urgency=medium
+
+  * Build for debify-bullseye.
+
+ -- Daniel Pocock <daniel@pocock.pro>  Mon, 22 Nov 2021 12:41:04 +0100
+
+kms-siprtpendpoint (1.0.0.18.04~20210728095528.gbp65a781) UNRELEASED; urgency=medium
+
+  ** SNAPSHOT build @65a781d8e63dc63fc9a6dc7c26c0159e85ee189a **
+
+  [ Saul Pablo Labajo Izquierdo ]
+  * Adapted to Kurento 7
+
+kms-siprtpendpoint (0.0.1~rc1.18.04.18.04~20210723095534.gbp8e15d9) UNRELEASED; urgency=medium
+
+  ** SNAPSHOT build @8e15d9c94af2f962c2cbddd17eb4f45d22f35952 **
+
+  [ Saul Pablo Labajo Izquierdo ]
+  * Adapted to KmsRtpEndpointLib
 
   [ root ]
-  * UNRELEASED
   * UNRELEASED
   * UNRELEASED
   * UNRELEASED
 
   [ Saul Pablo Labajo Izquierdo ]
-  * Started to integrate kurento buildpackage
+  * Adapted to KmsRtpEndpointLib
+  * Prepared for KmsRtpEndpointLib library
 
-  [ root ]
-  * UNRELEASED
-  * UNRELEASED
-  * UNRELEASED
-  * UNRELEASED
-  * UNRELEASED
-  * UNRELEASED
-  * UNRELEASED
-  * UNRELEASED
-  * UNRELEASED
-  * UNRELEASED
-
-  [ Saul Pablo Labajo Izquierdo ]
-  * buildpackage working
-
-  [ root ]
-  * UNRELEASED
-
-  [ Saul Pablo Labajo Izquierdo ]
-  * code cleanup
-  * more code cleanup
-  * Fixed test for several processOffer use case
-
-  [ root ]
-  * UNRELEASED
-
-  [ Saul Pablo Labajo Izquierdo ]
-  * Added documentation and fixed bug in test_constructors
-
-  [ root ]
-  * UNRELEASED
-  * UNRELEASED
-
-  [ Saul Pablo Labajo Izquierdo ]
-  * bug fixing
-  * Allow working for KMS from 6.8.0 onwards
-
-  [ root ]
-  * UNRELEASED
-  * UNRELEASED
-  * UNRELEASED
-  * UNRELEASED
-  * UNRELEASED
-  * UNRELEASED
-  * UNRELEASED
-  * UNRELEASED
-
-  [ Saul Pablo Labajo Izquierdo ]
-  * Minor update to documentation
-
-  [ root ]
-  * UNRELEASED
-  * UNRELEASED
-  * UNRELEASED
-  * UNRELEASED
-  * UNRELEASED
-  * UNRELEASED
-  * UNRELEASED
-  * UNRELEASED
-
- -- Saul Pablo Labajo Izquierdo <slabajo@naevatec.com>  Fri, 03 Dec 2021 11:52:23 +0000
+ -- root <root@d430ee2d7617>  Wed, 28 Jul 2021 09:55:44 +0000
 
 kms-datachannel-adapter (0.0.1~rc1) testing; urgency=medium
 
